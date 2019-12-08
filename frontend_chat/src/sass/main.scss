@@ -1,0 +1,171 @@
+@import 'reset';
+//@import 'fonts';
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+@import 'vars';
+@import 'mixins';
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: $blue;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
+
+// pulse-yellow  start
+@-webkit-keyframes pulse-yellow {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 20px rgba(204,169,44, 0);
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
+}
+@keyframes pulse-yellow {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+    box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 20px rgba(204,169,44, 0);
+      box-shadow: 0 0 0 20px rgba(204,169,44, 0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+      box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
+}
+// pulse-blue start
+
+@-webkit-keyframes pulse-blue {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba($blue, 0.4);
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 20px rgba($blue, 0);
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 rgba($blue, 0);
+  }
+}
+
+@keyframes pulse-blue {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba($blue, 0.4);
+    box-shadow: 0 0 0 0 rgba($blue, 0.4);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 20px rgba($blue, 0);
+      box-shadow: 0 0 0 20px rgba($blue, 0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba($blue, 0);
+      box-shadow: 0 0 0 0 rgba($blue, 0);
+  }
+}
+
+// start pulse-red
+
+@-webkit-keyframes pulse-red {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba($red, 0.4);
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 20px rgba($red, 0);
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 rgba($red, 0);
+  }
+}
+
+@keyframes pulse-red {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba($red, 0.4);
+    box-shadow: 0 0 0 0 rgba($red, 0.4);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 20px rgba($red, 0);
+      box-shadow: 0 0 0 20px rgba($red, 0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba($red, 0);
+      box-shadow: 0 0 0 0 rgba($red, 0);
+  }
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 8px;
+  @include xl {
+    width: 8px;
+  }
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: $blue
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: $blue
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background-color: rgba(24, 117, 240, 0.1);
+}
+
+@import './components/loader';
+@import './components/chat';
+@import './components/sign';
+@import './components/alert';
+@import './components/main';

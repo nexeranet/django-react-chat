@@ -1,0 +1,31 @@
+$screen-sm-min: 576px;
+
+$screen-md-min: 768px;
+
+$screen-lg-min: 992px;
+
+$screen-xl-min: 1200px;
+
+$screen-xxl-min: 1440px;
+
+$ff: 'Poppins';
+
+/* colors */
+$white: #FFFFFF;
+$blue : #4285F4;
+$blue2: #b3cde0;
+$blue3: #dce4ea;
+$red: #DB4437;
+$yellow : #F4B400;
+$green: #0F9D58;
+$gray: #d2d2d2;
+$gray_l: #f1f1f1;
+
+
+$cubeCount: 4;
+$animationDuration: 2.4s;
+$delayRange: ($animationDuration / 2);
+
+$spinkit-size: 4em !default;
+$spinkit-spinner-color: #F4B400  !default;
+

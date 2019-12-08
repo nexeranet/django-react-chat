@@ -1,0 +1,321 @@
+.chat-container {
+  position: relative;
+  background-color: $blue2;
+  .back-to-list-btn{
+    display: flex;
+    position:fixed;
+    top: 6rem;
+    left: .5rem;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    background-color:$white;
+    cursor:pointer;
+    animation: pulse-blue 2s infinite;
+    color: $blue;
+    @include xl {
+      top: initial;
+      bottom: 6rem;
+      left: 1rem;
+    }
+  }
+  .chat-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+  .chat-row-el {
+    flex-shrink: 1;
+    flex-grow: 1;
+  }
+  .chats-list-col {
+    flex-basis: 30%;
+    max-width: 30%;
+    display: none;
+    @include xl {
+      display: block;
+    }
+  }
+  .chat-main-side {
+    flex-basis: 70%;
+    background: $blue3;
+    min-height: 100vh;
+    @include xl {
+      min-height: initial;
+    }
+  }
+}
+.chats-side-tab {
+  position: relative;
+}
+.chats-list {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: calc(100vh - 60px);
+  &.chats-list_height-auto {
+    height: auto;
+  }
+  &__el {
+    position: relative;
+    &.active {
+      background: $blue;
+      .chat-card__name,
+      .chat-card__date {
+        color: $white;
+      }
+    }
+  }
+}
+.chats-search {
+  background-color: $blue;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  max-height: 60px;
+  height: 60px;
+  padding: 5px 15px;
+  align-content: center;
+  align-items: center;
+  font-family: $ff;
+  color: $white;
+  &__title {
+    flex: 1 1 40%;
+    padding-right: 20px;
+    font-size: 18px;
+  }
+  &__input-box {
+    position: relative;
+    flex: 1 1 60%;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+  }
+  &__input {
+    border-bottom: 1px solid $white;
+    border-width: 0 0 1px 0;
+    padding: 10px 25px 10px 10px;
+    background: none;
+    width: 100%;
+    font-size: 16px;
+    color: $white;
+    transition: all 0.3s ease-in;
+    &:focus {
+      transform: scale(1.06);
+      outline: none;
+    }
+  }
+  &__search-icon {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+  }
+}
+.chat-card {
+  box-sizing: border-box;
+  padding: 5px 10px;
+  display: block;
+  position: relative;
+  font-family: $ff;
+  &.hover-active {
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+    &:hover {
+      transform: scale(1.04);
+    }
+  }
+  &.chat-card_with-b-border {
+    border-bottom: 3px solid $blue;
+  }
+  &__row {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+  }
+  &__user-img-box {
+    position: relative;
+  }
+  &__user-img {
+    height: 43px;
+    width: 43px;
+    border-radius: 50%;
+  }
+  &__main-box {
+    padding: 5px;
+    width: 100%;
+    position: relative;
+  }
+  &__date-name {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+  }
+  &__date {
+    font-size: 15px;
+    color: #464646;
+    font-weight: bold;
+  }
+  &__name {
+    font-size: 13px;
+    color: #464646;
+    font-weight: bold;
+  }
+  &__last-message {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #989898;
+  }
+  &__control-row {
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: row wrap;
+    align-content: center;
+    align-items: center;
+    margin: 0 -0.5rem;
+  }
+  &__go-btn {
+    margin: 0.5rem;
+    cursor: pointer;
+    background-color: $blue;
+    font-family: $ff;
+    min-height: 1rem;
+    color: $white;
+    border: none;
+    border-radius: 0.2rem;
+  }
+  &__delete-btn {
+    cursor: pointer;
+    margin: 0.5rem;
+    background-color: $red;
+    font-family: $ff;
+    min-height: 1rem;
+    color: $white;
+    border: none;
+    border-radius: 0.2rem;
+  }
+  &__update-btn {
+    cursor: pointer;
+    margin: 0.5rem;
+    background-color: $green;
+    font-family: $ff;
+    min-height: 1rem;
+    color: $white;
+    border: none;
+    border-radius: 0.2rem;
+  }
+}
+.chat-wrapper {
+  position: relative;
+}
+.chat {
+  box-sizing: border-box;
+  padding: 10px 15px;
+  position: relative;
+  font-family: $ff;
+  height: calc(100vh - 55px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  &__inner {
+    display: flex;
+    flex-direction: column-reverse;
+    min-height: 100%;
+  }
+}
+.chat-form {
+  font-family: $ff;
+  position: relative;
+  padding: 0px 15px;
+  &__textarea {
+    box-sizing: border-box;
+    border: none;
+    background: $blue;
+    color: $white;
+    font-size: 15px;
+    width: 100%;
+    resize: none;
+    overflow: hidden;
+    height: auto;
+    padding: 8px 50px 8px 8px;
+    position: relative;
+    &::placeholder {
+      color: $white;
+      opacity: 0.5;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  &__send-icon {
+    cursor: pointer;
+    color: $white;
+    position: absolute;
+    right: 25px;
+    top: 12px;
+  }
+}
+.message {
+  font-family: $ff;
+  margin-bottom: 1rem;
+  &__box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    &.message__user {
+      justify-content: flex-end;
+      .message__content {
+        justify-content: flex-end;
+      }
+      .message__text {
+        color: $white;
+      }
+    }
+    &.message__receiver {
+      justify-content: flex-start;
+      .message__text {
+        background: $gray;
+      }
+    }
+  }
+  &__content {
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    flex-wrap: nowrap;
+  }
+  &__img-box {
+    padding-right: 20px;
+    &.auth-user {
+      padding-left: 20px;
+      padding-right: 0;
+    }
+    img {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+    }
+  }
+  &__text {
+    border-radius: 3px;
+    font-size: 14px;
+    background: $blue;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  &__date {
+    font-weight: 300;
+    color: #747474;
+    font-size: 12px;
+  }
+}

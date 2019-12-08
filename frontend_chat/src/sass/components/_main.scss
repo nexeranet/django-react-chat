@@ -1,0 +1,129 @@
+.main-page {
+  background-color: $blue;
+  min-height: 100vh;
+  display:flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  &__content-box{
+    background-color: $white;
+    max-width: 96%;
+    @include xl {
+      min-width: 70%;
+    }
+  }
+  &__search-box{
+    border-bottom: 5px solid $blue;
+    width: 100%;
+    position:relative;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  &__search-icon{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    right: .4rem;
+    color: $yellow;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    top: calc(50% - 15px);
+    position: absolute;
+    cursor:pointer;
+    animation: pulse-yellow 2s infinite;
+  }
+  &__search-input{
+    width: 100%;
+    padding: .2rem 1rem .2rem 1.6rem;
+    min-height: 2.5rem;
+    font-family: $ff;
+    font-size: 1.2rem;
+    box-sizing: border-box;
+    border:none;
+    border-bottom: 2px solid $yellow;
+    transition:all .2s ease-out;
+    &:focus{
+      outline:none;
+      border-bottom: 2px solid $green;
+    }
+  }
+}
+
+.sub-menu {
+  display: flex;
+  position:fixed;
+  top: 1rem;
+  left: .5rem;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  background-color:$white;
+  cursor:pointer;
+  animation: pulse-red 2s infinite;
+  color: $red;
+  @include xl {
+    top: initial;
+    bottom: 2rem;
+    left: 1rem;
+  }
+}
+.loading-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding: .2rem;
+}
+
+.profiles-list{
+  display: block;
+  position: relative;
+  &__el{
+    position: relative;
+    box-sizing: border-box;
+    border-bottom: 5px solid $blue;
+  }
+  &__card{
+    display: block;
+    position: relative;
+    padding: .5rem;
+  }
+  &__info-row{
+    display: flex;
+    flex-flow: row nowrap;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+  }
+  &__avatar-box{
+    img{
+      width:43px;
+      height:43px;
+      border-radius: 50%;
+    }
+  }
+  &__info-box{
+    padding: .5rem 1rem;
+    flex: 1 2 100%;
+    color: $gray;
+    font-family: $ff;
+    font-size:1rem;
+    width: 70%;
+    box-sizing: border-box;
+  }
+  &__create-btn{
+    min-height: 1.5rem;
+    font-family: $ff;
+    color: $white;
+    background-color: $blue;
+    border: none;
+    border-radius: .2rem;
+  }
+}

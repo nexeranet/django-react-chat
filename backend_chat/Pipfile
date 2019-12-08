@@ -1,0 +1,27 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+neovim = "*"
+flake8 = "*"
+jedi = "*"
+
+[packages]
+gunicorn = "*"
+djangorestframework = "*"
+django = ">=2.2.8"
+markdown = "*"
+django-filter = "*"
+channels="*"
+channels-redis="*"
+mysqlclient="*"
+django-cors-headers = "*"
+django-rest-auth = "*"
+django-allauth = "*"
+djangorestframework-jwt = "*"
+pillow = "*"
+
+[requires]
+python_version = "3.7"

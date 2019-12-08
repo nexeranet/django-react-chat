@@ -1,0 +1,108 @@
+version: "3.7"
+
+services:
+
+  ### Nginx ##############################################
+  nginx_chat:
+    container_name: rest_nginx
+    build: ./nginx_chat
+    restart: always
+    volumes:
+      - ./media:/app/media
+      - ./static:/app/static
+    ports:
+      - "${NGINX_HOST_HTTP_PORT}:80"
+      - "${NGINX_HOST_HTTPS_PORT}:443"
+    depends_on:
+      - backend_chat
+    networks:
+      - frontend
+      - backend
+
+### REDIS ##############################################
+  redis_chat:
+    image: redis:alpine
+    container_name: rest_redis
+    networks:
+      - backend
+    ports:
+      - "6379:6379"
+
+### MariaDB ##############################################
+  mariadb:
+    container_name: rest_db
+    build:
+      context: ./maria_chat
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+        - MARIADB_VERSION=${MARIADB_VERSION}
+    volumes:
+      - ${DATA_PATH_HOST}/mariadb:/var/lib/mysql
+      - ${MARIADB_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
+    ports:
+      - "${MARIADB_PORT}:3306"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - TZ=${WORKSPACE_TIMEZONE}
+      - MYSQL_DATABASE=${MARIADB_DATABASE}
+      - MYSQL_USER=${MARIADB_USER}
+      - MYSQL_PASSWORD=${MARIADB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+    networks:
+      - backend
+
+
+### Gunicorn + Django ##############################################
+  backend_chat:
+    restart: always
+    env_file: .env
+    container_name: rest_django
+    build:
+      context: ./backend_chat
+      args:
+        - DWORKDIR=${DJANGO_WORKDIR}
+        - INSTALL_NODE=${WORKSPACE_INSTALL_NODE}
+        - INSTALL_YARN=${WORKSPACE_INSTALL_YARN}
+        - NODE_VERSION=${WORKSPACE_NODE_VERSION}
+        - YARN_VERSION=${WORKSPACE_YARN_VERSION}
+    tty: true
+    volumes:
+      - ./backend_chat:/app
+      - ./static:/app/static
+      - ./media:/app/media
+    ports:
+      - "8000:8000"
+    networks:
+      - frontend
+      - backend
+    depends_on:
+      - mariadb
+
+### Nodejs + React ##############################################
+  frontend_chat:
+    restart: always
+    container_name: rest_react
+    tty: true
+    build: ./frontend_chat
+    volumes:
+      - ./frontend_chat:/frontend
+      - /app/node_modules
+      - ./static:/frontend/static/
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - FORCE_COLOR=1
+      - TERM=xterm-256color
+    depends_on:
+      - backend_chat
+    networks:
+      - frontend
+
+networks:
+  backend:
+    driver: ${NETWORKS_DRIVER}
+  frontend:
+    driver: ${NETWORKS_DRIVER}
