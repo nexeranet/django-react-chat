@@ -5,15 +5,16 @@ import {
     SET_MESSAGES,
     SET_CHAT,
     SET_LIST,
+    DELETE_CHAT
 } from "./reducer";
 
-import {toggleLoading} from '../utils/actions'
+import { toggleLoading } from "../utils/actions";
 
-export const setChat = (chat:any) => {
+export const setChat = (chat: any) => {
     return {
         type: SET_CHAT,
-        chat: chat,
-    }
+        chat: chat
+    };
 };
 
 export const addMessage = (message: any) => {
@@ -44,60 +45,88 @@ export const setList = (chats: any) => {
     };
 };
 
-export const createChatPromise = (participants:any) => (dispatch:any) => {
-    return new Promise( (resolve, rejects) =>{
+export const deleteChat = (chat: any) => {
+    return {
+        type: DELETE_CHAT,
+        chat: chat
+    };
+};
+
+export const createChatPromise = (participants: any) => (dispatch: any) => {
+    return new Promise((resolve, rejects) => {
         console.log(participants);
-        api.post('/chat/create/', {
+        api.post("/chat/create/", {
             datatext: "new chat",
-            users: participants,
-        }).then((res:any) => {
-            resolve(res.data);
-        }).catch((error) => {
-            rejects(error);
-        });
+            users: participants
+        })
+            .then((res: any) => {
+                resolve(res.data);
+            })
+            .catch(error => {
+                rejects(error);
+            });
     });
 };
 
-export const getUserDetailChatsPromise = (user_id:any) => (dispatch:any) => {
-    return new Promise((resolve, rejects) => {
-        dispatch(toggleLoading(true))
-        api.post('chat/chats/', {
-            user_id: user_id
-        }).then((data:any) => {
-            dispatch(toggleLoading(false))
-            dispatch(setList(data.data.chats))
-            resolve(data.data)
-        }).catch((error) => {
-            dispatch(toggleLoading(false))
-            rejects(error);
-        })
-    })
-};
-export const getUserChatsPromise = (user_id:any) => (dispatch:any) => {
-    return new Promise((resolve, rejects) => {
-        dispatch(toggleLoading(true))
-        api.post('chat/list/', {
-            user_id: user_id
-        }).then((data:any) => {
-            dispatch(toggleLoading(false))
-            dispatch(getUserChatsSuccess(data.data.chats))
-            resolve(data.data)
-        }).catch((error) => {
-            dispatch(toggleLoading(false))
-            rejects(error);
-        })
-    })
-};
-
-export const getChatDetailPromise = (chat_id:any) => (dispatch:any) => {
+export const getUserDetailChatsPromise = (user_id: any) => (dispatch: any) => {
     return new Promise((resolve, rejects) => {
         dispatch(toggleLoading(true));
-        api.post(`chat/${chat_id}`).then((data:any) => {
-            dispatch(toggleLoading(true))
-            resolve(data.data.chat);
-        }).catch((error:any) => {
+        api.post("chat/chats/", {
+            user_id: user_id
+        })
+            .then((data: any) => {
+                dispatch(toggleLoading(false));
+                dispatch(setList(data.data.chats));
+                resolve(data.data);
+            })
+            .catch(error => {
+                dispatch(toggleLoading(false));
+                rejects(error);
+            });
+    });
+};
+export const getUserChatsPromise = (user_id: any) => (dispatch: any) => {
+    return new Promise((resolve, rejects) => {
+        dispatch(toggleLoading(true));
+        api.post("chat/list/", {
+            user_id: user_id
+        })
+            .then((data: any) => {
+                dispatch(toggleLoading(false));
+                dispatch(getUserChatsSuccess(data.data.chats));
+                resolve(data.data);
+            })
+            .catch(error => {
+                dispatch(toggleLoading(false));
+                rejects(error);
+            });
+    });
+};
+
+export const getChatDetailPromise = (chat_id: any) => (dispatch: any) => {
+    return new Promise((resolve, rejects) => {
+        dispatch(toggleLoading(true));
+        api.post(`chat/${chat_id}`)
+            .then((data: any) => {
+                dispatch(toggleLoading(true));
+                resolve(data.data.chat);
+            })
+            .catch((error: any) => {
+                dispatch(toggleLoading(false));
+                rejects(error);
+            });
+    });
+};
+
+export const deleteChatPromise = (chat_id: any) => (dispatch: any) => {
+    return new Promise((resolve, rejects) => {
+        dispatch(toggleLoading(true));
+        api.post(`chat/${chat_id}/delete/`).then((data:any) => {
             dispatch(toggleLoading(false));
-            rejects(error);
-        });
-    })
-}
+            resolve(data);
+        }).catch((err:any) => {
+            dispatch(toggleLoading(false));
+            rejects(err);
+        })
+    });
+};

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import ChatList from "../../components/ChatList";
-import { getUserDetailChatsPromise, createChatPromise } from "../../store/chat/actions";
+import { getUserDetailChatsPromise, createChatPromise, deleteChatPromise, deleteChat } from "../../store/chat/actions";
 import { compose } from "redux";
 import { authHoc, HocProps } from "../../hoc/authHOC";
 import SearchIcon from "@material-ui/icons/Search";
@@ -23,6 +23,8 @@ export interface IProps extends HocProps {
     getDetail: any;
     searchProfile: any;
     createChat:any;
+    deleteChat:any;
+    delTest:any;
 }
 
 class Main extends React.Component<IProps, IState> {
@@ -60,7 +62,13 @@ class Main extends React.Component<IProps, IState> {
     goToChat = (id: any) => {
         this.props.history.push(`/chat/${id}`);
     };
-    deleteChat = (id: any) => console.log(id);
+    deleteChat = (id: any) => {
+        this.props.deleteChat(id).then((data:any) => {
+            const list = [...this.state.chats];
+            const chats = list.filter((item:any) => item.id !== id);
+            this.setState({chats: chats});
+        }).catch((err:any) => console.log(err))
+    };
     onChangeSearch = (e: any) =>
         this.setState({ search: e.target.value }, () => this.filterList());
     filterList = () => {
@@ -145,7 +153,9 @@ const matchDispatchToProps = (dispatch: any) => {
         getChats: (user_id: any) =>
             dispatch(getUserDetailChatsPromise(user_id)),
         searchProfile: (search: any) => dispatch(searchProfile(search)),
-        createChat: (participants:any) => dispatch(createChatPromise(participants))
+        createChat: (participants:any) => dispatch(createChatPromise(participants)),
+        deleteChat: (chat_id:any) => dispatch(deleteChatPromise(chat_id)),
+        delTest: (chat:any) => dispatch(deleteChat(chat))
     }
 };
 const mapStateToProps = (state: any) => {

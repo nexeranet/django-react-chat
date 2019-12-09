@@ -1,10 +1,10 @@
-import updateDict from "../tools";
 
 export const ADD_MESSAGE = "ADD_MESSAGE";
 export const SET_MESSAGES = "SET_MESSAGES";
 export const GET_CHATS_SUCCESS = "GET_CHATS_SUCCESS";
 export const SET_CHAT = "SET_CHAT";
 export const SET_LIST = "SET_LIST";
+export const DELETE_CHAT = "DELETE_CHAT";
 
 const initialState: any = {
     messages: [],
@@ -48,6 +48,15 @@ const setChat = (state: any, action: any) => {
     };
 };
 
+const deleteChat = (state: any, action: any) => {
+    const list = [...state.list];
+    const chats = list.filter((item:any) => item.id !== action.chat)
+    return {
+        ...state,
+        list: chats,
+    };
+};
+
 const reducer = (state: any = initialState, action: any) => {
     switch (action.type) {
         case ADD_MESSAGE:
@@ -60,6 +69,8 @@ const reducer = (state: any = initialState, action: any) => {
             return setChat(state, action);
         case SET_LIST:
             return setList(state, action);
+        case DELETE_CHAT:
+            return deleteChat(state, action);
         default:
             return state;
     }
